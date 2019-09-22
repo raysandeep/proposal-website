@@ -1,371 +1,228 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <script>
-            var TxtType = function(el, toRotate, period) {
-                this.toRotate = toRotate;
-                this.el = el;
-                this.loopNum = 0;
-                this.period = parseInt(period, 10) || 2000;
-                this.txt = '';
-                this.tick();
-                this.isDeleting = false;
-            };
-            
-            TxtType.prototype.tick = function() {
-                var i = this.loopNum % this.toRotate.length;
-                var fullTxt = this.toRotate[i];
-            
-                if (this.isDeleting) {
-                this.txt = fullTxt.substring(0, this.txt.length - 1);
-                } else {
-                this.txt = fullTxt.substring(0, this.txt.length + 1);
-                }
-            
-                this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
-            
-                var that = this;
-                var delta = 200 - Math.random() * 100;
-            
-                if (this.isDeleting) { delta /= 2; }
-            
-                if (!this.isDeleting && this.txt === fullTxt) {
-                delta = this.period;
-                this.isDeleting = true;
-                } else if (this.isDeleting && this.txt === '') {
-                this.isDeleting = false;
-                this.loopNum++;
-                delta = 500;
-                }
-            
-                setTimeout(function() {
-                that.tick();
-                }, delta);
-            };
-            
-            window.onload = function() {
-                var elements = document.getElementsByClassName('typewrite');
-                for (var i=0; i<elements.length; i++) {
-                    var toRotate = elements[i].getAttribute('data-type');
-                    var period = elements[i].getAttribute('data-period');
-                    if (toRotate) {
-                      new TxtType(elements[i], JSON.parse(toRotate), period);
-                    }
-                }
-                // INJECT CSS
-                var css = document.createElement("style");
-                css.type = "text/css";
-                css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
-                document.body.appendChild(css);
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <!-- META -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- SITE TITLE -->
+        <title>Sai Sandeep Rayanuthala</title>
+
+        <!-- FAVICON -->
+        <!--<link rel="icon" href="images/favicon.png">-->
+
+        <!-- STYLE -->
+        <link rel="stylesheet" href="css/style.css">
+
+        <!--[if lt IE 9]>
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+            <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+        <![endif]-->
+
+    </head>
+    <body>
+        <canvas id="c"></canvas>
+        <div class="wrapper">
+
+            <div class="main-section">
+                <div class="menu-area">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-home"></i><span>Home</span></a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">
+                                        <i class="fa fa-envelope"></i>
+                                        <span>Contact</span>
+                                    </a>
+                                </li>
+                            </ul><!-- END TAB MENU -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB CONTENT -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="home">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <form class="subsribbe-box">
+                                        <div class="animation-container">
+                                            <svg viewBox="0 205 600 600">
+                                                <symbol id="text">
+                                                    <text text-anchor="middle" x="50%" y="50%"> COMING SOON</text>
+                                                </symbol>
+                                                <use xlink:href="#text" class="text"></use>
+                                                <use xlink:href="#text" class="text"></use>
+                                                <use xlink:href="#text" class="text"></use>
+                                                <use xlink:href="#text" class="text"></use>
+                                            </svg>
+                                        </div>
+                                        <h1>MODERN & CREATIVE TEMPLATE</h1>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        </div>
+                                        <input type="submit"  class="btn submit-btn" value="SUBSCRIBE" />
+                                    </form>
+                                </div><!-- END OF /. COLUMN -->
+                            </div><!-- END OF /. ROW -->
+                        </div><!-- END OF /. CONTAINER FLUID -->
+                    </div><!-- END OF /. HOME -->
+
+                    <div role="tabpanel" class="tab-pane fade" id="when">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="counter-item">
+                                        <h2>WE'RE COMING IN</h2>
+                                        <h3>Our Website Is Coming Soon. We`ll be here soon with our new Imagination.</h3>
+                                        <ul class="countdown">
+                                    		<li>
+                                    			<span class="days">00</span>
+                                    			<p class="days_ref">days</p>
+                                    		</li>
+                                    		<li>
+                                    			<span class="hours">00</span>
+                                    			<p class="hours_ref">hours</p>
+                                    		</li>
+                                    		<li>
+                                    			<span class="minutes">00</span>
+                                    			<p class="minutes_ref">minutes</p>
+                                    		</li>
+                                    		<li>
+                                    			<span class="seconds last">00</span>
+                                    			<p class="seconds_ref">seconds</p>
+                                    		</li>
+                                    	</ul>
+                                    </div>
+                                </div><!-- END OF /. COLUMN -->
+                            </div><!-- END OF /. ROW -->
+                        </div><!-- END OF /. CONTAINER FLUID -->
+                    </div><!-- END OF /. WHEN -->
+
+                    <div role="tabpanel" class="tab-pane fade" id="about">
+                        <div class="container about-area">
+                            <div class="row about-item">
+                                <div class="icon col-sm-6 col-md-4"> <!-- Feature 1 -->
+                                    <div class="icon_img">
+                                        <div class="hex-wrap small">
+                                            <div class="hex yellow">
+                                                <i class="fa fa-html5 icon-basic-gear"></i><!--  Your Feature-1 Icon Goes Here -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="icon_detail"><!--  Your Feature-1 Detail Goes Here -->
+                                        <h3>Customizable</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore</p>
+                                    </div>
+                                </div><!-- End: Feature 1  -->
+
+                                <div class="icon col-sm-6 col-md-4"> <!-- Feature 2 -->
+                                    <div class="icon_img">
+                                        <div class="hex-wrap small">
+                                            <div class="hex yellow">
+                                                <i class="fa fa-code icon-basic-photo"></i><!--  Your Feature-2 Icon Goes Here -->
+                                            </div>
+                                        </div>
+                                        <div class="icon_detail">
+                                            <h3>Photo Sharing</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore</p>
+                                        </div>
+                                    </div>
+                                </div><!-- End: Feature 2  -->
+                                <div class="icon col-sm-6 col-md-4"> <!-- Feature 3 -->
+                                    <div class="icon_img ">
+                                        <div class="hex-wrap small">
+                                            <div class="hex yellow">
+                                                <i class="fa fa-twitter icon-basic-anticlockwise"></i><!--  Your Feature-3 Icon Goes Here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="icon_detail"><!--  Your Feature-3 Detail Goes Here -->
+                                        <h3>Fast Loading</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore</p>
+                                    </div>
+                                </div><!-- End: Feature 3  -->
+                            </div><!-- END OF /. ROW -->
+                        </div><!-- END OF /. CONTAINER FLUID -->
+                    </div><!-- END OF /. ABOUT -->
+
+                    <div role="tabpanel" class="tab-pane fade" id="contact">
+                        <div class="container about-area">
+                            <div class="row about-item">
+                                <div class="col-md-6">
+                                    <div class="marg50">
+                                        <div class="contact-item">
+                							<h4>address</h4>
+                                            <h6><i class="fa fa-map-marker"></i> College Adress:</h6>
+                							<p>
+                								<a href="https://goo.gl/maps/2eF6Z" target="_blank">VIT Vellore,<br>
+                								Tamilnadu, India</a>
+                							</p>
+                						</div>
+                						<div class="contact-item">
+                							<h6><i class="fa fa-phone"></i> Call us</h6>
+                							<p>
+                								<strong><a href="tel:+919492671016">(+91) 9492671016</a></strong><br>
+                							</p>
+                						</div>
+
+                						<div class="contact-item">
+                							<h6><i class="fa fa-envelope"></i> Write us</h6>
+                							<p>
+                                                <a href="mailto:rayanuthalas@gmail.com">rayanuthalas@gmail.com</a>
+                							</p>
+                						</div>
+                                        
+                                    </div>
+                                </div><!-- END OF /. COLUMN -->
+                                <div class="col-md-6">
+                                    <form class="contact-form">
+                                        <h4>Want something important to convey??</h4>
+                                        <div class="row form-area">
+                                            <div class="form-group col-md-6">
+                                                    <input type="text" name="contact-name" class="form-control" placeholder="Enter your name">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <input type="text" name="contact-name" class="form-control" placeholder="Enter your email">
+                                            </div>
+                                        </div>
+                                        <div class="row form-area">
+                                            <div class="form-group col-md-12">
+                                                <input type="text" name="contact-name" class="form-control" placeholder="Website">
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <textarea name="contact-message" class="form-control" placeholder="Message"></textarea>
+                                            </div>
+                                        </div>
+                                        <input type="submit" id="form-send" value="SEND" class="btn submit-btn">
+                                    </form>
+                                </div><!-- END OF /. COLUMN -->
+                            </div><!-- END OF /. ROW -->
+                        </div><!-- END OF /. CONTAINER FLUID -->
+                    </div><!-- END OF /. CONTACT -->
+                </div>
+
+        </div><!-- END OF /. WRAPPER -->
 
 
-                var stats,
-    particles = [];
+        <!-- JQUERY LIBEARY -->
+        <script src="js/vendor/jquery-1.11.2.min.js"></script>
+        <!-- BOOTSTRAP -->
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <!-- CUSTOM JS -->
+        <script src="js/jquery.downCount.js"></script>
+        <!-- CUSTOM JS -->
+        <script src="js/rain.js"></script>
+        <script src="js/custom.js"></script>
 
-Math.range = function(min, max) {
-    if (!max) {
-        max = min;
-        min = 0;
-    }
-    return min + Math.random() * (max - min);
-};
-
-Math.chance = function(probability) {
-    if (!probability) {
-        probability = 0.5;
-    }
-    return Math.random() < probability;
-};
-
-function toRGB(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-}
-
-function Particle() {
-    this.isActive = (Math.chance(0.5));
-}
-
-Particle.COLORS = ['#ff0000', '#daede6', '#a3d9cc', '#738076', '#734357', '#f5496b', '#e3b1be'];
-
-Particle.prototype.init = function() {
-    this.radius = 1;
-    this.color = toRGB(Particle.COLORS[Math.round(Math.random() * (Particle.COLORS.length - 1))]);
-    this.alpha = 1;
-    this.fade = Math.range(0.005, 0.25);
-    this.grow = (this.fade > 0.01) ? Math.range(0.25, 0.5) : Math.range(0.05, 0.4);
-
-    if (!this.isActive) {
-        this.x += Math.range(-10, 10);
-        this.y += Math.range(-10, 10);
-    }
-};
-
-Particle.prototype.update = function() {
-    if (this.isActive) {
-        this.alpha -= this.fade;
-        this.radius += this.grow;
-    }
-    if (this.alpha <= 0) {
-        this.init();
-    }
-};
-
-Particle.prototype.draw = function(ctx) {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'rgba(' + this.color.r + ', ' + this.color.g + ', ' + this.color.b + ', ' + this.alpha + ')';
-    ctx.fill();
-};
-
-Sketch.create({
-
-    setup: function() {
-
-        var particle,
-            center = {
-                x: this.width / 2,
-                y: (this.height / 2) - 50
-            };
-
-        for (var i = 0; i < 400; i++) {
-            particle = new Particle();
-            particle.x = center.x + 180 * Math.pow(Math.sin(i), 3);
-            particle.y = center.y + 10 * (-(15 * Math.cos(i) - 5 * Math.cos(2 * i) - 2 * Math.cos(3 * i) - Math.cos(4 * i)));
-            particle.init();
-            particles.push(particle);
-        }
-
-        // stats = new Stats();
-        // this.container.appendChild(stats.domElement);
-    },
-
-    draw: function() {
-
-        var particle;
-
-        for (var i = 0, length = particles.length; i < length; i++) {
-            particle = particles[i];
-            particle.update();
-            particle.draw(this);
-        }
-
-        // stats.update();
-    },
-
-    keyup: function(event) {
-        var key = event.which || event.keyCode;
-        if (key == 32) {
-            this.toggle();
-        }
-    }
-});
-
-            };
-    </script>
-    <style>
-            body {
-                background-color: black;
-                text-align: center;
-                color:#fff;
-                padding-top:10em;
-              }
-              
-              * { color:#fff; text-decoration: none;}
-              .hearts {
-                position: absolute;
-                bottom: 32px;
-                left: 50%;
-                transform: translateX(-50%);
-              }
-              .hearts .heart {
-                position: absolute;
-                list-style: none;
-                width: 32px;
-                height: 32px;
-                margin: 4px;
-              }
-              .hearts .heart:before,
-              .hearts .heart:after {
-                position: absolute;
-                content: "";
-                left: 16px;
-                top: 0;
-                width: 16px;
-                height: 24px;
-                background: red;
-                -moz-border-radius: 16px 16px 0 0;
-                -o-border-radius: 16px 16px 0 0;
-                border-radius: 16px 16px 0 0;
-                -webkit-transform: rotate(-45deg);
-                -moz-transform: rotate(-45deg);
-                -o-transform: rotate(-45deg);
-                transform: rotate(-45deg);
-                -webkit-transform-origin: 0 100%;
-                -moz-transform-origin: 0 100%;
-                -o-transform-origin: 0 100%;
-                transform-origin: 0 100%;
-              }
-              .hearts .heart:after {
-                left: 0;
-                -webkit-transform: rotate(45deg);
-                -moz-transform: rotate(45deg);
-                -o-transform: rotate(45deg);
-                transform: rotate(45deg);
-                -webkit-transform-origin: 100% 100%;
-                -moz-transform-origin: 100% 100%;
-                -o-transform-origin: 100% 100%;
-                transform-origin: 100% 100%;
-              }
-              .hearts.flying > .heart:nth-child(even) {
-                -webkit-animation: 2.8s flyingEven linear infinite;
-                -moz-animation: 2.8s flyingEven linear infinite;
-                animation: 2.8s flyingEven linear infinite;
-              }
-              .hearts.flying > .heart:nth-child(odd) {
-                -webkit-animation: 2.8s flyingOdd linear infinite;
-                -moz-animation: 2.8s flyingOdd linear infinite;
-                animation: 2.8s flyingOdd linear infinite;
-              }
-              .hearts.flying > .heart:nth-child(1) {
-                animation-delay: 0.2s;
-              }
-              .hearts.flying > .heart:nth-child(2) {
-                animation-delay: 0.3s;
-              }
-              .hearts.flying > .heart:nth-child(3) {
-                animation-delay: 0.6s;
-              }
-              .hearts.flying > .heart:nth-child(4) {
-                animation-delay: 1.5s;
-              }
-              .hearts.flying > .heart:nth-child(5) {
-                animation-delay: 2.2s;
-              }
-              .hearts.flying > .heart:nth-child(6) {
-                animation-delay: 2.9s;
-              }
-              .hearts.flying > .heart:nth-child(7) {
-                animation-delay: 3.2s;
-              }
-              .hearts.flying > .heart:nth-child(8) {
-                animation-delay: 3.5s;
-              }
-              .hearts.flying > .heart:nth-child(9) {
-                animation-delay: 3.8s;
-              }
-              .hearts.flying > .heart:nth-child(10) {
-                animation-delay: 4.1s;
-              }
-              .hearts.flying > .heart:nth-child(11) {
-                animation-delay: 4.5s;
-              }
-              .hearts.flying > .heart:nth-child(12) {
-                animation-delay: 5s;
-              }
-              @-moz-keyframes flyingEven {
-                0% {
-                  transform: translate(0, 0) scale(1);
-                  opacity: 1;
-                  filter: blur(0px);
-                }
-                100% {
-                  transform: translate(100px, -480px) scale(3);
-                  opacity: 0;
-                  filter: blur(0px);
-                }
-              }
-              @-webkit-keyframes flyingEven {
-                0% {
-                  transform: translate(0, 0) scale(1);
-                  opacity: 1;
-                  filter: blur(0px);
-                }
-                100% {
-                  transform: translate(100px, -480px) scale(3);
-                  opacity: 0;
-                  filter: blur(0px);
-                }
-              }
-              @keyframes flyingEven {
-                0% {
-                  transform: translate(0, 0) scale(1);
-                  opacity: 1;
-                  filter: blur(0px);
-                }
-                100% {
-                  transform: translate(100px, -480px) scale(3);
-                  opacity: 0;
-                  filter: blur(0px);
-                }
-              }
-              @-moz-keyframes flyingOdd {
-                0% {
-                  transform: translate(0, 0) scale(1);
-                  opacity: 1;
-                  filter: blur(0px);
-                }
-                100% {
-                  transform: translate(-100px, -480px) scale(3);
-                  opacity: 0;
-                  filter: blur(0px);
-                }
-              }
-              @-webkit-keyframes flyingOdd {
-                0% {
-                  transform: translate(0, 0) scale(1);
-                  opacity: 1;
-                  filter: blur(0px);
-                }
-                100% {
-                  transform: translate(-100px, -480px) scale(3);
-                  opacity: 0;
-                  filter: blur(0px);
-                }
-              }
-              @keyframes flyingOdd {
-                0% {
-                  transform: translate(0, 0) scale(1);
-                  opacity: 1;
-                  filter: blur(0px);
-                }
-                100% {
-                  transform: translate(-100px, -480px) scale(3);
-                  opacity: 0;
-                  filter: blur(0px);
-                }
-              }
-    </style>
-</head>
-<body>
-        <h1>
-                <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Im Sandeep.", "Mahith , How is this??", "New website to propose a girl!" ]'>
-                  <span class="wrap"></span>
-                </a>
-        </h1>
-        <ul class="hearts flying">
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-                <li class="heart"></li>
-    
-
-      
-</body>
+    </body>
 </html>

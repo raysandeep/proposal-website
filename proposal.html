@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Proposal</title>
+    <script>
+            var TxtType = function(el, toRotate, period) {
+                this.toRotate = toRotate;
+                this.el = el;
+                this.loopNum = 0;
+                this.period = parseInt(period, 10) || 2000;
+                this.txt = '';
+                this.tick();
+                this.isDeleting = false;
+            };
+            
+            TxtType.prototype.tick = function() {
+                var i = this.loopNum % this.toRotate.length;
+                var fullTxt = this.toRotate[i];
+            
+                if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+                } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+                }
+            
+                this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+            
+                var that = this;
+                var delta = 200 - Math.random() * 100;
+            
+                if (this.isDeleting) { delta /= 2; }
+            
+                if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+                } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+                }
+            
+                setTimeout(function() {
+                that.tick();
+                }, delta);
+            };
+            
+            window.onload = function() {
+                var elements = document.getElementsByClassName('typewrite');
+                for (var i=0; i<elements.length; i++) {
+                    var toRotate = elements[i].getAttribute('data-type');
+                    var period = elements[i].getAttribute('data-period');
+                    if (toRotate) {
+                      new TxtType(elements[i], JSON.parse(toRotate), period);
+                    }
+                }
+                // INJECT CSS
+                var css = document.createElement("style");
+                css.type = "text/css";
+                css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+                document.body.appendChild(css);
+
+
+                var stats,
+    particles = [];
+
+Math.range = function(min, max) {
+    if (!max) {
+        max = min;
+        min = 0;
+    }
+    return min + Math.random() * (max - min);
+};
+
+Math.chance = function(probability) {
+    if (!probability) {
+        probability = 0.5;
+    }
+    return Math.random() < probability;
+};
+
+function toRGB(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
+function Particle() {
+    this.isActive = (Math.chance(0.5));
+}
+
+Particle.COLORS = ['#ff0000', '#daede6', '#a3d9cc', '#738076', '#734357', '#f5496b', '#e3b1be'];
+
+Particle.prototype.init = function() {
+    this.radius = 1;
+    this.color = toRGB(Particle.COLORS[Math.round(Math.random() * (Particle.COLORS.length - 1))]);
+    this.alpha = 1;
+    this.fade = Math.range(0.005, 0.25);
+    this.grow = (this.fade > 0.01) ? Math.range(0.25, 0.5) : Math.range(0.05, 0.4);
+
+    if (!this.isActive) {
+        this.x += Math.range(-10, 10);
+        this.y += Math.range(-10, 10);
+    }
+};
+
+Particle.prototype.update = function() {
+    if (this.isActive) {
+        this.alpha -= this.fade;
+        this.radius += this.grow;
+    }
+    if (this.alpha <= 0) {
+        this.init();
+    }
+};
+
+Particle.prototype.draw = function(ctx) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+    ctx.fillStyle = 'rgba(' + this.color.r + ', ' + this.color.g + ', ' + this.color.b + ', ' + this.alpha + ')';
+    ctx.fill();
+};
+
+Sketch.create({
+
+    setup: function() {
+
+        var particle,
+            center = {
+                x: this.width / 2,
+                y: (this.height / 2) - 50
+            };
+
+        for (var i = 0; i < 400; i++) {
+            particle = new Particle();
+            particle.x = center.x + 180 * Math.pow(Math.sin(i), 3);
+            particle.y = center.y + 10 * (-(15 * Math.cos(i) - 5 * Math.cos(2 * i) - 2 * Math.cos(3 * i) - Math.cos(4 * i)));
+            particle.init();
+            particles.push(particle);
+        }
+
+        // stats = new Stats();
+        // this.container.appendChild(stats.domElement);
+    },
+
+    draw: function() {
+
+        var particle;
+
+        for (var i = 0, length = particles.length; i < length; i++) {
+            particle = particles[i];
+            particle.update();
+            particle.draw(this);
+        }
+
+        // stats.update();
+    },
+
+    keyup: function(event) {
+        var key = event.which || event.keyCode;
+        if (key == 32) {
+            this.toggle();
+        }
+    }
+});
+
+            };
+    </script>
+    <style>
+            body {
+                background-color: black;
+                text-align: center;
+                color:#fff;
+                padding-top:10em;
+              }
+              
+              * { color:#fff; text-decoration: none;}
+              .hearts {
+                position: absolute;
+                bottom: 32px;
+                left: 50%;
+                transform: translateX(-50%);
+              }
+              .hearts .heart {
+                position: absolute;
+                list-style: none;
+                width: 32px;
+                height: 32px;
+                margin: 4px;
+              }
+              .hearts .heart:before,
+              .hearts .heart:after {
+                position: absolute;
+                content: "";
+                left: 16px;
+                top: 0;
+                width: 16px;
+                height: 24px;
+                background: red;
+                -moz-border-radius: 16px 16px 0 0;
+                -o-border-radius: 16px 16px 0 0;
+                border-radius: 16px 16px 0 0;
+                -webkit-transform: rotate(-45deg);
+                -moz-transform: rotate(-45deg);
+                -o-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+                -webkit-transform-origin: 0 100%;
+                -moz-transform-origin: 0 100%;
+                -o-transform-origin: 0 100%;
+                transform-origin: 0 100%;
+              }
+              .hearts .heart:after {
+                left: 0;
+                -webkit-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                -o-transform: rotate(45deg);
+                transform: rotate(45deg);
+                -webkit-transform-origin: 100% 100%;
+                -moz-transform-origin: 100% 100%;
+                -o-transform-origin: 100% 100%;
+                transform-origin: 100% 100%;
+              }
+              .hearts.flying > .heart:nth-child(even) {
+                -webkit-animation: 2.8s flyingEven linear infinite;
+                -moz-animation: 2.8s flyingEven linear infinite;
+                animation: 2.8s flyingEven linear infinite;
+              }
+              .hearts.flying > .heart:nth-child(odd) {
+                -webkit-animation: 2.8s flyingOdd linear infinite;
+                -moz-animation: 2.8s flyingOdd linear infinite;
+                animation: 2.8s flyingOdd linear infinite;
+              }
+              .hearts.flying > .heart:nth-child(1) {
+                animation-delay: 0.2s;
+              }
+              .hearts.flying > .heart:nth-child(2) {
+                animation-delay: 0.3s;
+              }
+              .hearts.flying > .heart:nth-child(3) {
+                animation-delay: 0.6s;
+              }
+              .hearts.flying > .heart:nth-child(4) {
+                animation-delay: 1.5s;
+              }
+              .hearts.flying > .heart:nth-child(5) {
+                animation-delay: 2.2s;
+              }
+              .hearts.flying > .heart:nth-child(6) {
+                animation-delay: 2.9s;
+              }
+              .hearts.flying > .heart:nth-child(7) {
+                animation-delay: 3.2s;
+              }
+              .hearts.flying > .heart:nth-child(8) {
+                animation-delay: 3.5s;
+              }
+              .hearts.flying > .heart:nth-child(9) {
+                animation-delay: 3.8s;
+              }
+              .hearts.flying > .heart:nth-child(10) {
+                animation-delay: 4.1s;
+              }
+              .hearts.flying > .heart:nth-child(11) {
+                animation-delay: 4.5s;
+              }
+              .hearts.flying > .heart:nth-child(12) {
+                animation-delay: 5s;
+              }
+              @-moz-keyframes flyingEven {
+                0% {
+                  transform: translate(0, 0) scale(1);
+                  opacity: 1;
+                  filter: blur(0px);
+                }
+                100% {
+                  transform: translate(100px, -480px) scale(3);
+                  opacity: 0;
+                  filter: blur(0px);
+                }
+              }
+              @-webkit-keyframes flyingEven {
+                0% {
+                  transform: translate(0, 0) scale(1);
+                  opacity: 1;
+                  filter: blur(0px);
+                }
+                100% {
+                  transform: translate(100px, -480px) scale(3);
+                  opacity: 0;
+                  filter: blur(0px);
+                }
+              }
+              @keyframes flyingEven {
+                0% {
+                  transform: translate(0, 0) scale(1);
+                  opacity: 1;
+                  filter: blur(0px);
+                }
+                100% {
+                  transform: translate(100px, -480px) scale(3);
+                  opacity: 0;
+                  filter: blur(0px);
+                }
+              }
+              @-moz-keyframes flyingOdd {
+                0% {
+                  transform: translate(0, 0) scale(1);
+                  opacity: 1;
+                  filter: blur(0px);
+                }
+                100% {
+                  transform: translate(-100px, -480px) scale(3);
+                  opacity: 0;
+                  filter: blur(0px);
+                }
+              }
+              @-webkit-keyframes flyingOdd {
+                0% {
+                  transform: translate(0, 0) scale(1);
+                  opacity: 1;
+                  filter: blur(0px);
+                }
+                100% {
+                  transform: translate(-100px, -480px) scale(3);
+                  opacity: 0;
+                  filter: blur(0px);
+                }
+              }
+              @keyframes flyingOdd {
+                0% {
+                  transform: translate(0, 0) scale(1);
+                  opacity: 1;
+                  filter: blur(0px);
+                }
+                100% {
+                  transform: translate(-100px, -480px) scale(3);
+                  opacity: 0;
+                  filter: blur(0px);
+                }
+              }
+    </style>
+</head>
+<body>
+        <h1>
+                <a href="" class="typewrite" data-period="2000" data-type='[ "Hi, Im Sandeep.", "Girl to be decided.", "wanna be that lucky girl!?", "Ping me up!" ]'>
+                  <span class="wrap"></span>
+                </a>
+        </h1>
+        <ul class="hearts flying">
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+                <li class="heart"></li>
+    
+
+      
+</body>
+</html>
